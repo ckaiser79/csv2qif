@@ -1,0 +1,4 @@
+bar = foo * 10;
+
+/* not really necessary butter easier to read */
+return bar;
