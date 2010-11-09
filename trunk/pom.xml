@@ -4,8 +4,8 @@
   <groupId>de.servicezombie.banking</groupId>
   <artifactId>csv2qif</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
-  <name>csv2qif-j</name>
+  <version>1.0-SNAPSHOT</version>
+  <name>csv2qif</name>
 
 	<properties>
 		<compiler.version>1.5</compiler.version>		
