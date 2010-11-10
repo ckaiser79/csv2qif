@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<configuration default-transformer="vb-sauerland">
+	
+<!-- currently not tested: to enable other banks, you can provide a bsh snippet.
+     please see source code of de.servicezombie.csv2qif.util.BeanshellScriptedQuickenTransformer
+     for details.
+	<transformer id="bank-1" class="de.servicezombie.csv2qif.util.BeanshellScriptedQuickenTransformer">
+		<property name="sourceFileAsString" value="src/test/resources/bank-1.bsh" />
+		
+		<csv-configration 
+			skip-lines="0"
+			quote-char=""
+			field-separator="\t" />
+			
+	</transformer>
+-->
+	
+	<!-- a transformer defines how a csv file has to be converted into a quicken object -->
+	<transformer id="vb-sauerland" class="de.servicezombie.csv2qif.util.VbSauerlandQuickenTransformer">
+		<csv-configration 
+			skip-lines="1"
+			quote-char=""
+			field-separator=";" />
+	</transformer>
+
+	<!-- rules: you can use java compliant regular expressions. first matching expression wins -->
+	
+	<!-- partner -->
+	<rules type="pattern-matcher" patternField="partnerName" resultField="partnerName">
+		<rule pattern=".+ LIDL.*" result="LIDL" />
+		<rule pattern=".*WOOLWORTH.*" result="WOOLWORTH" />
+	</rules>
+	
+	<!-- categories -->
+	<rules type="if-withdraw-pattern-matcher" patternField="text" resultField="category">
+		<rule pattern=".*(CAPALM TANK|JET|SHELL|ARAL|ESSO|CAPALM|Q1 TANK|TANKEN|RAIFFEISEN|MINERALOELE|WESTFALEN TS).*" result="EX:Car" />
+		<rule pattern=".*" result="EX:Misc" />
+	</rules>
+	<rules type="if-deposit-pattern-matcher" patternField="text" resultField="category">
+		<rule pattern=".*EARNINGS.*" result="IN:Earnings" /> 
+		<rule pattern=".*" result="IN:Misc" /> 
+	</rules>
+</configuration>
+
