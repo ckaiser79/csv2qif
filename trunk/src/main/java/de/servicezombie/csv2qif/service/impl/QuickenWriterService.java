@@ -34,7 +34,7 @@ public class QuickenWriterService implements IQuickenWriterService, QuickenSpecC
 			sb.append(MEMO).append(record.getText()).append(NL);
 		}
 
-		sb.append(ACCOUNT_NO).append(record.getAccountNo()).append(NL);
+		//sb.append(REFERENCE_NO).append(record.getAccountNo()).append(NL);
 		if(record.getBookingDate() != null) {
 			sb.append(BOOKING_DATE).append(sdf.format(record.getBookingDate())).append(NL);
 		}
